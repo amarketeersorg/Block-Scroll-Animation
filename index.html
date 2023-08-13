@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  .wp-animate-block {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+
+  .wp-animate-block.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Additional styling for demonstration purposes */
+  body {
+    height: 200vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  .wp-animate-block {
+    width: 100%;
+    height: 200px;
+    background-color: lightblue;
+    margin-bottom: 20px;
+  }
+</style>
+<title>Scroll Animation Example</title>
+</head>
+<body>
+<div class="wp-animate-block">
+  <!-- Your content here -->
+</div>
+
+<script>
+  // Function to check if an element is in the viewport
+  function isElementInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
+
+  // Function to handle scroll event
+  function handleScroll() {
+    const elementsToAnimate = document.querySelectorAll('.wp-animate-block');
+    
+    elementsToAnimate.forEach(element => {
+      if (isElementInViewport(element)) {
+        element.classList.add('visible');
+      }
+    });
+  }
+
+  // Attach scroll event listener
+  window.addEventListener('scroll', handleScroll);
+
+  // Trigger initial check in case some elements are already in viewport on page load
+  handleScroll();
+</script>
+</body>
+</html>
